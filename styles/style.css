@@ -99,7 +99,8 @@ body   { color: #02192d; font-family: din-pro-light; }
 .clue { font-size: 14px; }
 
 input.activate,
-button.step-back {
+button.step-back,
+button.step-forward {
   font-size: 14px;
   font-family: din-pro-bold;
   text-transform: uppercase;
@@ -215,7 +216,8 @@ label {
 button:focus,
 label:focus,
 input[type="submit"]  { outline: 0; }
-button.step-back {
+button.step-back,
+button.step-forward {
   line-height: 14px;
   border-width: 1px;
   border-style: solid;
@@ -223,11 +225,18 @@ button.step-back {
   border-radius: 40px;
   background-color: transparent;
   padding: 10px 20px;
+  margin-right: 10px;
 }
+button.step-forward.notactive {
+  border-color: rgb(210, 210, 211);
+  color: rgb(210, 210, 211);
+}
+
 label span.with-pic { margin-left: 30px; }
 label:nth-child( 3n+2 ) { margin-left: 19px; margin-right: 19px; }
 label.answer-text,
-button.step-back {
+button.step-back,
+button.step-forward {
   -webkit-transition: border-color 0.35s;
   -moz-transition: border-color 0.35s;
   -ms-transition: border-color 0.35s;
@@ -235,7 +244,9 @@ button.step-back {
   transition: border-color 0.35s;
  }
 label:hover { cursor: pointer; border-color: #02192d !important; }
-button.step-back:hover { cursor: pointer; border-color: #02192d !important; }
+button.step-back:hover,
+button.step-forward:hover
+ { cursor: pointer; border-color: #02192d !important; }
 label.selected { border-color: #ff470d; }
 span.long { display: inline-block; vertical-align: text-top; margin-top: -10px;  }
 

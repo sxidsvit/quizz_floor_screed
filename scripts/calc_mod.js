@@ -70,9 +70,10 @@ function buttonOff() {
 }
 
 // ENABLE THE BUTTON
-$( 'input.answer' ).click( function() {
-  $( 'button.next' ).removeAttr( 'disabled' );
-});
+//$( 'input.answer' ).click( function() {
+  //$( 'button.step-forward' ).fadeIn( 900 ).removeClass( 'notactive' );
+  //$( 'button.next' ).removeAttr( 'disabled' );
+//});
 
 // COLLECT DATA FROM CHECKED INPUTS
 var livingPlace,
@@ -86,11 +87,11 @@ function getData() {
 }
 
 // ACTIVE ANSWER
-$( 'label' ).click( function(){
-  $( 'label' ).css( 'border-color', '#d2d2d3' );
-  $( this ).css( 'border-color', '#ff470d' );
-  $( '.img-checked' ).css( 'display', 'none' );
-});
+//$( 'label' ).click( function(){
+  //$( 'label' ).css( 'border-color', '#d2d2d3' );
+ // $( this ).css( 'border-color', '#ff470d' );
+  //$( '.img-checked' ).css( 'display', 'none' );
+//});
 
 // CHANGE DECORATION PICTURES
 function swapPicture() {
@@ -108,28 +109,57 @@ function swapPicture() {
   }
 }
 
-// DO ALL THE MAGIC
-$( 'label.simple' ).click( function() {
-  $( this ).find( 'input:radio' ).attr( 'checked', 'checked' );
-  $( 'input.answer:checked + .img-checked' ).css( 'display', 'inline-block' );
-  getData();
+// Click on the label SIMPLE
 
-  setTimeout( function() {
-    hideBlock();
-    lineFill ();
-    numberUp ();
-    buttonOff();
-    discountUp();
-    showBlock ();
-    swapPicture();
-  }, 300 );
+// manipulate the buttons of the quizz navigation
+$( 'label.simple' ).click( function() {
+  var clicked = $(this);
+  if (questionCounter == 1) {
+    console.log('questionCounter = ' + questionCounter);
+    console.log(clicked.parent().parent().parent()[0]);
+    clicked.parent().parent().parent().find( 'button.step-forward'  ).removeClass( 'notactive' ).removeAttr( 'title');
+  }
+  else {
+    console.log('questionCounter = ' + questionCounter);
+    console.log(clicked.parent().parent()[0]);
+    clicked.parent().parent().find( 'button.step-forward'  ).removeClass( 'notactive' ).removeAttr( 'title');
+  }
+
+  // Change the color of the boarder. Manipulate with a picture checked. Hide the radio button
+  var displayAttr = clicked.find('.img-checked').data("imgchecked");
+  console.log("data-imgchecked : " + displayAttr );
+
+  clicked.find( 'input:radio' ).toggle(displayAttr);
+  if ( displayAttr === false ) {
+     console.log('displayAttr = ' + displayAttr);
+     clicked.find( 'input:radio' ).attr( 'checked', 'checked' );
+     clicked.css( 'border-color', '#ff470d' );
+     clicked.find('.img-checked').css( 'display', 'inline-block' );
+     displayAttr = true;
+     clicked.find('.img-checked').data("imgchecked", displayAttr);
+  } 
+
+  else if ( displayAttr === true ) {
+    console.log('displayAttr = ' + displayAttr);
+    clicked.find( 'input:radio' ).attr( 'checked', 'checked' );
+    clicked.css( 'border-color', '#d2d2d3' );
+    clicked.find(' input[type="radio"] ').attr( 'style', 'display:none' );
+    clicked.find('.img-checked').css( 'display', 'none' );
+    displayAttr = false;
+    clicked.find('.img-checked').data("imgchecked", displayAttr);
+  }
+  
+  //$( 'input.answer:checked + .img-checked' ).css( 'display', 'inline-block' );
+  //$( 'input.answer:checked + .img-checked' ).toggle();
+  //css( 'display', 'inline-block' );
 
   console.log( livingPlace + ' ' + square + ' ' + additional );
   return false;
 });
 
-// CHANGE TO PHONE REQUEST STEP
-$( '.penultimate' ).click( function() {
+// Click on the label PENULTIMATE 
+$( 'label.penultimate' ).click( function() {
+  $(this).parent().parent().find( 'button.step-forward'  ).removeClass( 'notactive' ).removeAttr( 'title');
   $( this ).find( 'input:radio' ).attr( 'checked', 'checked' );
   $( 'input.answer:checked + .img-checked' ).css( 'display', 'inline-block' );
   additional = $( 'input.additional:checked' ).val();
@@ -146,8 +176,22 @@ $( '.penultimate' ).click( function() {
   return false;
 });
 
-// MAKE THE STEP BACK HAPPEN
-$( '.step-back' ).click(function() {
+// Click on the button STEP-FORWARD 
+$( 'button.step-forward' ).click( function() {
+  getData();
+  setTimeout( function() {
+    hideBlock();
+    lineFill ();
+    numberUp ();
+    buttonOff();
+    discountUp();
+    showBlock ();
+    swapPicture();
+  }, 300 );
+});
+
+// Click on the button STEP-BACK
+$( 'button.step-back' ).click(function() {
   numberDown();
   discountDown();
   lineEmpty();

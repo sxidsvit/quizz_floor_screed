@@ -46,15 +46,15 @@
             <div class="line-gap" id="gap-3"></div>
           </div>
 
-            <div class="question-container question question-1 visible">
-              <div class="question-body">Где вы будете делать стяжку?</div>
-              <div class="answer-inputs">
-                <form id="form" class="collect-data">
+          <div class="question-container question question-1 visible">
+            <div class="question-body">Где вы будете делать стяжку?</div>
+            <div class="answer-inputs">
+              <form id="form" class="collect-data">
                 <label for="appartment" class="answer-text simple">
                   <img src="./img/ico-1.png" class="building-pic" id="pic-app" />
                   <span class="with-pic">В квартире</span>
                   <input type="radio" name="living-place" id="appartment" class="answer living-place" value="Квартира" />
-                  <img src="./img/checked.png" alt="" class="img-checked" />
+                  <img data-imgchecked="false" src="./img/checked.png" alt="В квартире" class="img-checked" />
                 </label>
 
                 <label for="cottage" class="answer-text simple">
@@ -63,7 +63,7 @@
                   <img src="./img/ico-2.png" class="building-pic" id="pic-cot" />
                   <span class="with-pic">В коттедже</span>
                   <input type="radio" name="living-place" id="cottage" class="answer living-place" value="Коттедж" />
-                  <img src="./img/checked.png" alt="" class="img-checked" />
+                  <img data-imgchecked="false" src="./img/checked.png" alt="В коттедже" class="img-checked" />
                 </label>
 
                 <label for="house" class="answer-text simple">
@@ -72,7 +72,7 @@
                   <img src="./img/ico-3.png" class="building-pic" id="pic-hom" />
                   <span class="with-pic">В доме</span>
                   <input type="radio" name="living-place" id="house" class="answer living-place" value="Дом" />
-                  <img src="./img/checked.png" alt="" class="img-checked" />
+                  <img data-imgchecked="false" src="./img/checked.png" alt="В доме" class="img-checked" />
                 </label>
 
                 <label for="house" class="answer-text simple">
@@ -81,17 +81,18 @@
                   <img src="./img/ico-10.png" class="building-pic" id="pic-com" />
                   <span class="with-pic">Коммерческое</span>
                   <input type="radio" name="living-place" id="commerce" class="answer living-place" value="Коммерческое" />
-                  <img src="./img/checked.png" alt="" class="img-checked" />
+                  <img data-imgchecked="false" src="./img/checked.png" alt="Коммерческое" class="img-checked" />
                 </label>
 
                 <label for="other" class="answer-text simple">
                   Другое
                   <input type="radio" name="living-place" id="other" class="answer living-place" value="Другое" />
-                  <img src="./img/checked.png" alt="" class="img-checked" />
+                  <img data-imgchecked="false" src="./img/checked.png" alt="Другое" class="img-checked" />
                 </label>
 
               </div>
               <div class="pseudo-btn"></div>
+              <button class="step-forward notactive" title="Вы не сделали выбор">шаг вперед ></button>
             </div>
 
             <div class="question-container question question-2 ">
@@ -120,9 +121,10 @@
 
               </div>
               <button class="step-back">< шаг назад</button>
+              <button class="step-forward notactive" title="Вы не сделали выбор">шаг вперед ></button>
             </div>
 
-            <div class="question-container question question-3">
+            <div class="question-container question question-3 ">
               <div class="question-body" id="long">Укажите дополнительные работы до и после стяжки</div>
               <div class="answer-inputs">
 
@@ -161,26 +163,26 @@
                   <input type="radio" name="additional" id="plaster" class="answer additional" value="Штукатурные работы" />
                   <img src="./img/checked.png" alt="" class="img-checked" />
                 </label>
-
               </div>
               <button class="step-back">< шаг назад</button>
+              <button class="step-forward notactive" title="Вы не сделали выбор">шаг вперед ></button>
             </div>
 
-        </div>
-        <div class="questions-frame final">
-          <div class="question-body">
-            Спасибо! Вы успешно ответили <br /> на все вопросы!
           </div>
-          <div class="cell-request">
-            Введите свой номер телефона в поле ниже, что бы активировать
-            свою скидку, и получить точную стоимость стяжки
-          </div>
+          <div class="questions-frame final">
+            <div class="question-body">
+              Спасибо! Вы успешно ответили <br /> на все вопросы!
+            </div>
+            <div class="cell-request">
+              Введите свой номер телефона в поле ниже, что бы активировать
+              свою скидку, и получить точную стоимость стяжки
+            </div>
             <div class="wrapper">
               <img src="./img/cell.png" class="cell" alt="">
               <input type="tel" name="tel" class="tel" placeholder="+375(__)-___-__-__" />
               <input type="submit" value="активировать скидку >" class="activate">
             </div>
-            </form>
+          </form>
           <div class="contact-with-you">
             <img src="./img/chat.png" alt="" class="chat-img">
             <div class="contact-text">
@@ -197,9 +199,10 @@
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script type="text/javascript" src="./scripts/calc.js" defer></script>
+<script type="text/javascript" src="./scripts/calc_mod.js" defer></script>
 <script type="text/javascript" src="./scripts/mask.js" defer></script>
 <!-- Yandex.Metrika counter -->
+<!-- Временно убирает карту 
 <script type="text/javascript" >
     (function (d, w, c) {
         (w[c] = w[c] || []).push(function() {
@@ -227,6 +230,7 @@
     })(document, window, "yandex_metrika_callbacks");
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/47792515" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+-->
 <!-- /Yandex.Metrika counter -->
 
 </html>
