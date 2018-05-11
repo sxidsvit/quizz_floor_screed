@@ -76,8 +76,7 @@ function buttonOff() {
 //});
 
 // COLLECT DATA FROM CHECKED INPUTS
-var square,
-    additional,
+var additional,
     tel;
 
 function getData() {
@@ -108,21 +107,15 @@ function swapPicture() {
   }
 }
 
-// Click ON THE LABEL SIMPLE
-
-// -- manipulate the buttons of the quizz navigation --
-
-$( 'label.simple' ).click( function() {
-  var clicked = $(this);
+// CHANGE INPUTS & IMG STATES
+function changeState(clicked) {
 
   if (questionCounter == 1) {
     console.log('questionCounter = ' + questionCounter);
-    console.log(clicked.parent().parent().parent()[0]);
     clicked.parent().parent().parent().find( 'button.step-forward'  ).removeClass( 'notactive' ).removeAttr( 'title');
   }
   else {
     console.log('questionCounter = ' + questionCounter);
-    console.log(clicked.parent().parent()[0]);
     clicked.parent().parent().find( 'button.step-forward'  ).removeClass( 'notactive' ).removeAttr( 'title');
   }
 
@@ -132,6 +125,7 @@ $( 'label.simple' ).click( function() {
   console.log('displayAttr до клика : ' + displayAttr);
 
   clicked.find( 'input:checkbox' ).toggle(displayAttr);
+
   if ( displayAttr === false ) {
      clicked.find( 'input:checkbox' ).prop( 'checked', true );
      clicked.css( 'border-color', '#ff470d' );
@@ -139,7 +133,6 @@ $( 'label.simple' ).click( function() {
      displayAttr = true;
      clicked.find('.img-checked').data("imgchecked", displayAttr);
   } 
-
   else if ( displayAttr === true ) {
     clicked.find( 'input:checkbox' ).prop( 'checked', false);
     clicked.css( 'border-color', '#d2d2d3' );
@@ -148,16 +141,14 @@ $( 'label.simple' ).click( function() {
     displayAttr = false;
     clicked.find('.img-checked').data("imgchecked", displayAttr);
   }
-   console.log('displayAttr после клика : ' + displayAttr);
+  console.log('displayAttr после клика : ' + displayAttr);
+}
 
-
- // -- collect all the marked inputs and put them into an array  --
-
- // var tmp1 = clicked.find(' input[type="checkbox"] ');
- // console.log('После клика свойство checked = ' + tmp1[0].checked + ' - Объект клика :  ' + tmp1[0].value);
+// COLLECTING QUIZZ RESULTS
+function resultsCollecting() {
+// -- collect all the marked inputs and put them into an array  --
 
   var boxes = $(' input[type="checkbox"].living-place:checked '); 
-   // console.log(boxes);  console.log('Длина - ' + boxes.length);
   var livingPlace = "Где вы будете делать стяжку? - ";
   var count = 0;;
   for (var i=0;  i<boxes.length; i++ )
@@ -168,15 +159,38 @@ $( 'label.simple' ).click( function() {
       }
      }
   if (count == 0) {livingPlace += "Еще не знаю |"}
+
+  var boxes = $(' input[type="checkbox"].square:checked '); 
+  var square = "Какая площадь Вашего объекта? - ";
+  var count = 0;;
+  for (var i=0;  i<boxes.length; i++ )
+    {
+      if( $(boxes[i]).prop('checked')) {
+        square += $(boxes[i]).val() + ' | ';
+        count ++;
+      }
+     }
+  if (count == 0) {square += "Еще не знаю |"}
+
   console.log( livingPlace + ' ' + square + ' ' + additional );
-  return false;
+}
+
+// Click ON THE LABEL SIMPLE
+
+$( 'label.simple' ).click( function() {
+  var clicked = $(this);
+  //clicked = clicked.parent().parent();
+  console.log('Ты кликнул по - ');  console.log(clicked[0].childNodes);
+  changeState(clicked);
+  //resultsCollecting();
 });
 
 // Click on the label PENULTIMATE 
 $( 'label.penultimate' ).click( function() {
-  $(this).parent().parent().find( 'button.step-forward'  ).removeClass( 'notactive' ).removeAttr( 'title');
-  $( this ).find( 'input:radio' ).attr( 'checked', 'checked' );
-  $( 'input.answer:checked + .img-checked' ).css( 'display', 'inline-block' );
+    var clicked = $(this);
+    changeState(clicked);
+
+
   additional = $( 'input.additional:checked' ).val();
 
   $( '.questions-frame.simple' ).fadeOut( 10 );
