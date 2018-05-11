@@ -76,8 +76,7 @@ function buttonOff() {
 //});
 
 // COLLECT DATA FROM CHECKED INPUTS
-var livingPlace,
-    square,
+var square,
     additional,
     tel;
 
@@ -109,11 +108,13 @@ function swapPicture() {
   }
 }
 
-// Click on the label SIMPLE
+// Click ON THE LABEL SIMPLE
 
-// manipulate the buttons of the quizz navigation
+// -- manipulate the buttons of the quizz navigation --
+
 $( 'label.simple' ).click( function() {
   var clicked = $(this);
+
   if (questionCounter == 1) {
     console.log('questionCounter = ' + questionCounter);
     console.log(clicked.parent().parent().parent()[0]);
@@ -125,14 +126,14 @@ $( 'label.simple' ).click( function() {
     clicked.parent().parent().find( 'button.step-forward'  ).removeClass( 'notactive' ).removeAttr( 'title');
   }
 
-  // Change the color of the boarder. Manipulate with a picture checked. Hide the radio button
-  var displayAttr = clicked.find('.img-checked').data("imgchecked");
-  console.log("data-imgchecked : " + displayAttr );
+  // -- change the color of the boarder. Manipulate with a picture checked. Hide the radio button --
 
-  clicked.find( 'input:radio' ).toggle(displayAttr);
+  var displayAttr = clicked.find('.img-checked').data("imgchecked");
+  console.log('displayAttr до клика : ' + displayAttr);
+
+  clicked.find( 'input:checkbox' ).toggle(displayAttr);
   if ( displayAttr === false ) {
-     console.log('displayAttr = ' + displayAttr);
-     clicked.find( 'input:radio' ).attr( 'checked', 'checked' );
+     clicked.find( 'input:checkbox' ).prop( 'checked', true );
      clicked.css( 'border-color', '#ff470d' );
      clicked.find('.img-checked').css( 'display', 'inline-block' );
      displayAttr = true;
@@ -140,19 +141,33 @@ $( 'label.simple' ).click( function() {
   } 
 
   else if ( displayAttr === true ) {
-    console.log('displayAttr = ' + displayAttr);
-    clicked.find( 'input:radio' ).attr( 'checked', 'checked' );
+    clicked.find( 'input:checkbox' ).prop( 'checked', false);
     clicked.css( 'border-color', '#d2d2d3' );
-    clicked.find(' input[type="radio"] ').attr( 'style', 'display:none' );
-    clicked.find('.img-checked').css( 'display', 'none' );
+    clicked.find(' input[type="checkbox"] ').attr( 'style', 'display:none' );
+    clicked.find('.img-checked').css( 'display', 'none' ); 
     displayAttr = false;
     clicked.find('.img-checked').data("imgchecked", displayAttr);
   }
-  
-  //$( 'input.answer:checked + .img-checked' ).css( 'display', 'inline-block' );
-  //$( 'input.answer:checked + .img-checked' ).toggle();
-  //css( 'display', 'inline-block' );
+   console.log('displayAttr после клика : ' + displayAttr);
 
+
+ // -- collect all the marked inputs and put them into an array  --
+
+ // var tmp1 = clicked.find(' input[type="checkbox"] ');
+ // console.log('После клика свойство checked = ' + tmp1[0].checked + ' - Объект клика :  ' + tmp1[0].value);
+
+  var boxes = $(' input[type="checkbox"].living-place:checked '); 
+   // console.log(boxes);  console.log('Длина - ' + boxes.length);
+  var livingPlace = "Где вы будете делать стяжку? - ";
+  var count = 0;;
+  for (var i=0;  i<boxes.length; i++ )
+    {
+      if( $(boxes[i]).prop('checked')) {
+        livingPlace += $(boxes[i]).val() + '|';
+        count ++;
+      }
+     }
+  if (count == 0) {livingPlace += "Еще не знаю |"}
   console.log( livingPlace + ' ' + square + ' ' + additional );
   return false;
 });

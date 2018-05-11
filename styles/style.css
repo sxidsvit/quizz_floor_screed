@@ -171,6 +171,8 @@ img.percent-icon { margin: 0 auto; }
  }
 
 input[type="radio"] { display: none; }
+input[type="checkbox"] { display: none; }
+
 input.activate {
   display: block;
   padding: 13.5px 25px;
