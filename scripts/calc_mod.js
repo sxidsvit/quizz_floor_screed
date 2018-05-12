@@ -1,6 +1,6 @@
 $( document ).ready( function() {
 
-// !!!!!!!!!!!!!!!! CHANGE QUESTION NUMBER !!!!!!!!!!!!!!!! //
+// ! CHANGE QUESTION NUMBER
 
 var num = 0,
     questionNumber = $( 'span.progress-number' );
@@ -165,7 +165,10 @@ function resultsCollecting() {
   if (count == 0) {square += "Еще не знаю |"}
 // ----------------------------------------------------------------
 
-  console.log( livingPlace + ' ' + square + ' ' + additional );
+  //console.log( livingPlace + ' ' + square + ' ' + additional );
+  console.log( 'livingPlace : ' + livingPlace );
+  console.log( 'square : ' + square );
+  console.log( 'additional : ' + additional );
 }
 
 // Click ON THE LABEL SIMPLE
@@ -200,7 +203,7 @@ $( 'button.step-forward' ).click( function() {
 
   var lastQuestion = $(this).parent().hasClass('question-3');
   if ( lastQuestion ) {
-    console.log( ' Секция с третим вопросом ');
+    // console.log( ' Секция с третим вопросом ');
     $( '.questions-frame.simple' ).fadeOut( 10 );
     $( '.question-3' ).delay( 400 ).removeClass( 'visible' );
     $( '.progress' ).css( 'display', 'none' );
@@ -227,13 +230,17 @@ $( 'button.step-back' ).click(function() {
 });
 
 // SUBMIT FORM DATA
-var tel;
+
 $( '#form' ).submit( function(){
   if( !$( 'input.tel' ).val() ){
     alert( 'Пожалуйста, введите номер телефона.' );
     return false;
   } else {
-    tel = $( 'input.tel' ).val();
+    var tel = $( 'input.tel' ).val();
+    //console.log(tel);
+    //url: 'https://ad.lekua.in.ua/dj7/mail.php',
+    //http://stiazka-lux.by/calc//scripts/form.php
+    //url: 'http://stiazka-lux.by/calc//scripts/form.php',
     $.ajax({
       url: './scripts/form.php',
       type: 'post',
