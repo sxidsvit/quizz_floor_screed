@@ -69,28 +69,6 @@ function buttonOff() {
   $( 'button.next' ).attr( 'disabled', 'disabled' );
 }
 
-// ENABLE THE BUTTON
-//$( 'input.answer' ).click( function() {
-  //$( 'button.step-forward' ).fadeIn( 900 ).removeClass( 'notactive' );
-  //$( 'button.next' ).removeAttr( 'disabled' );
-//});
-
-// COLLECT DATA FROM CHECKED INPUTS
-var additional,
-    tel;
-
-function getData() {
-  livingPlace = $( 'input.living-place:checked' ).val();
-  square = $( 'input.square:checked' ).val();
-}
-
-// ACTIVE ANSWER
-//$( 'label' ).click( function(){
-  //$( 'label' ).css( 'border-color', '#d2d2d3' );
- // $( this ).css( 'border-color', '#ff470d' );
-  //$( '.img-checked' ).css( 'display', 'none' );
-//});
-
 // CHANGE DECORATION PICTURES
 function swapPicture() {
   if ( $( '.question-1' ).hasClass('visible') ) {
@@ -102,7 +80,7 @@ function swapPicture() {
     $( '#horznt' ).fadeIn( 800 ).css( 'display', 'inline-block' );
     $( '#roulet' ).fadeIn( 800 ).css( 'display', 'inline-block' );
   } else if ( $( '.question-3' ).hasClass('visible') ) {
-    $( '.bg-img' ).fadeOut( 800 ).css( 'display', 'none' );
+    $( '.bg-img' ).fadeOut( 800 ).css( 'display', 'none' ); 
     $( '#heater' ).fadeIn( 800 ).css( 'display', 'inline-block' );
   }
 }
@@ -111,7 +89,7 @@ function swapPicture() {
 function changeState(clicked) {
 
   if (questionCounter == 1) {
-    console.log('questionCounter = ' + questionCounter);
+    //console.log('questionCounter = ' + questionCounter);
     clicked.parent().parent().parent().find( 'button.step-forward'  ).removeClass( 'notactive' ).removeAttr( 'title');
   }
   else {
@@ -122,7 +100,7 @@ function changeState(clicked) {
   // -- change the color of the boarder. Manipulate with a picture checked. Hide the radio button --
 
   var displayAttr = clicked.find('.img-checked').data("imgchecked");
-  console.log('displayAttr до клика : ' + displayAttr);
+  //console.log('displayAttr до клика : ' + displayAttr);
 
   clicked.find( 'input:checkbox' ).toggle(displayAttr);
 
@@ -141,12 +119,12 @@ function changeState(clicked) {
     displayAttr = false;
     clicked.find('.img-checked').data("imgchecked", displayAttr);
   }
-  console.log('displayAttr после клика : ' + displayAttr);
+  //console.log('displayAttr после клика : ' + displayAttr);
 }
 
 // COLLECTING QUIZZ RESULTS
 function resultsCollecting() {
-// -- collect all the marked inputs and put them into an array  --
+  // -- collect all the marked inputs and put them into an array  --
 
   var boxes = $(' input[type="checkbox"].living-place:checked '); 
   var livingPlace = "Где вы будете делать стяжку? - ";
@@ -159,6 +137,7 @@ function resultsCollecting() {
       }
      }
   if (count == 0) {livingPlace += "Еще не знаю |"}
+  // ----------------------------------------------------------------
 
   var boxes = $(' input[type="checkbox"].square:checked '); 
   var square = "Какая площадь Вашего объекта? - ";
@@ -171,6 +150,20 @@ function resultsCollecting() {
       }
      }
   if (count == 0) {square += "Еще не знаю |"}
+// ----------------------------------------------------------------
+
+  var boxes = $(' input[type="checkbox"].additional:checked '); 
+  var additional = "Дополнительные работы - ";
+  var count = 0;;
+  for (var i=0;  i<boxes.length; i++ )
+    {
+      if( $(boxes[i]).prop('checked')) {
+        additional += $(boxes[i]).val() + ' | ';
+        count ++;
+      }
+     }
+  if (count == 0) {square += "Еще не знаю |"}
+// ----------------------------------------------------------------
 
   console.log( livingPlace + ' ' + square + ' ' + additional );
 }
@@ -179,35 +172,22 @@ function resultsCollecting() {
 
 $( 'label.simple' ).click( function() {
   var clicked = $(this);
-  //clicked = clicked.parent().parent();
-  console.log('Ты кликнул по - ');  console.log(clicked[0].childNodes);
+  //console.log('Ты кликнул по - ');  console.log(clicked[0].childNodes);
   changeState(clicked);
-  //resultsCollecting();
+  resultsCollecting();
+  return false;
 });
 
 // Click on the label PENULTIMATE 
 $( 'label.penultimate' ).click( function() {
     var clicked = $(this);
     changeState(clicked);
-
-
-  additional = $( 'input.additional:checked' ).val();
-
-  $( '.questions-frame.simple' ).fadeOut( 10 );
-  $( '.question-3' ).delay( 400 ).removeClass( 'visible' );
-  $( '.progress' ).css( 'display', 'none' );
-  $( '.questions-frame.final'  ).delay( 400 ).fadeIn ( 600 );
-  $( '.bg-img' ).fadeOut( 600 ).css( 'display', 'none' );
-  $( '#vasyan' ).fadeIn( 900 ).css( 'display', 'inline-block' );
-  discountSpan.text( '10%' ).fadeIn( 600 );
-
-  console.log( livingPlace + ' ' + square + ' ' + additional );
-  return false;
+    resultsCollecting();
+    return false;
 });
 
 // Click on the button STEP-FORWARD 
 $( 'button.step-forward' ).click( function() {
-  getData();
   setTimeout( function() {
     hideBlock();
     lineFill ();
@@ -217,26 +197,37 @@ $( 'button.step-forward' ).click( function() {
     showBlock ();
     swapPicture();
   }, 300 );
+
+  var lastQuestion = $(this).parent().hasClass('question-3');
+  if ( lastQuestion ) {
+    console.log( ' Секция с третим вопросом ');
+    $( '.questions-frame.simple' ).fadeOut( 10 );
+    $( '.question-3' ).delay( 400 ).removeClass( 'visible' );
+    $( '.progress' ).css( 'display', 'none' );
+    $( '.questions-frame.final'  ).delay( 400 ).fadeIn ( 600 );
+    $( '.bg-img' ).fadeOut( 600 ).css( 'display', 'none' );
+    $( '#vasyan' ).fadeIn( 900 ).css( 'display', 'inline-block' );
+    discountSpan.text( '10%' ).fadeIn( 600 );
+  }
+  return false;
 });
 
 // Click on the button STEP-BACK
 $( 'button.step-back' ).click(function() {
-  numberDown();
-  discountDown();
-  lineEmpty();
-  getData();
-  hideBlock();
-  stepBack();
-  swapPicture();
-
-  $( '.img-checked' ).css( 'display', 'none' );
-  $( 'label' ).css( 'border-color', '#d2d2d3' );
-  $( 'input' ).attr( 'checked', false );
+  setTimeout( function() {
+   numberDown();
+   discountDown();
+   lineEmpty();
+   hideBlock();
+   stepBack();
+   swapPicture();
+  }, 300 );
 
   return false;
 });
 
 // SUBMIT FORM DATA
+var tel;
 $( '#form' ).submit( function(){
   if( !$( 'input.tel' ).val() ){
     alert( 'Пожалуйста, введите номер телефона.' );
