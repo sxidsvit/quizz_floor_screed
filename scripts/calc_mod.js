@@ -245,21 +245,19 @@ $( '#form' ).submit( function(){
     return false;
   } 
   else {
-    var tel = $( 'input.tel' ).val();
-    //url: 'https://ad.lekua.in.ua/dj7/mail.php',
-    //url: "mail.php",
+    var tel = 'Телефон: ' + $( 'input.tel' ).val();
     try {
       $.ajax({
-        url: 'http://stiazka-lux.by/calc//scripts/form.php',
+        url: 'http://ad.lekua.in.ua/calc//mail.php',
         type: 'post',
         data: { 
-                mylivingPlace: livingPlace,
-                mysquare: square,
-                myadditional: additional,
-                mytel: tel 
+                livingPlace: livingPlace,
+                square: square,
+                additional: additional,
+                tel: tel 
               },
         success: function( data ){
-          console.log( 'okay' );
+          console.log( 'Сообщение отправлено' );
           alert( 'Поздравляем! Вы получили скидку!' );
           location.replace( 'index.html' );
         }
@@ -267,7 +265,6 @@ $( '#form' ).submit( function(){
     }
     catch (e) {
      console.log(e);
-     console.log(e.name);
     }
   }
   return false;
