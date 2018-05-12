@@ -7,11 +7,13 @@ var num = 0,
 
 function numberUp() {
   num ++;
-  questionNumber.text( num ); }
+  questionNumber.text( num ); 
+}
 
 function numberDown() {
   num --;
-  questionNumber.text( num ); }
+  questionNumber.text( num ); 
+}
 
 // !!!!!!!!!!!!!!!! CHANGE DISCOUNT !!!!!!!!!!!!!!!! //
 var discount = 3,
@@ -20,12 +22,14 @@ var discount = 3,
 function discountUp() {
   discountSpan.fadeOut( 100 );
   discount += 2;
-  discountSpan.text( discount + '%' ).fadeIn( 250 ); }
+  discountSpan.text( discount + '%' ).fadeIn( 250 ); 
+}
 
 function discountDown() {
   discountSpan.fadeOut( 100 );
   discount -= 2;
-  discountSpan.text( discount + '%' ).fadeIn( 250 ); }
+  discountSpan.text( discount + '%' ).fadeIn( 250 ); 
+}
 
 // !!!!!!!!!!!!!!!! NEXT QUESTION !!!!!!!!!!!!!!!! //
 
@@ -58,11 +62,13 @@ var fillAmount = 25,
 
 function lineFill() {
   fillAmount += 59;
-  line = line.animate( { width: fillAmount + 'px' }, 400 ); }
+  line = line.animate( { width: fillAmount + 'px' }, 400 );
+}
 
 function lineEmpty() {
   fillAmount -= 59;
-  line = line.animate( { width: fillAmount + 'px' }, 400 ); }
+  line = line.animate( { width: fillAmount + 'px' }, 400 ); 
+}
 
 // DISABLE THE BUTTON
 function buttonOff() {
@@ -123,12 +129,14 @@ function changeState(clicked) {
 }
 
 // COLLECTING QUIZZ RESULTS
+var livingPlace, square, additional;
+
 function resultsCollecting() {
   // -- collect all the marked inputs and put them into an array  --
 
   var boxes = $(' input[type="checkbox"].living-place:checked '); 
-  var livingPlace = "Где вы будете делать стяжку? - ";
-  var count = 0;;
+  var count = 0;
+  livingPlace = "Где вы будете делать стяжку? - ";
   for (var i=0;  i<boxes.length; i++ )
     {
       if( $(boxes[i]).prop('checked')) {
@@ -140,8 +148,8 @@ function resultsCollecting() {
   // ----------------------------------------------------------------
 
   var boxes = $(' input[type="checkbox"].square:checked '); 
-  var square = "Какая площадь Вашего объекта? - ";
-  var count = 0;;
+  var count = 0;
+  square = "Какая площадь Вашего объекта? - ";
   for (var i=0;  i<boxes.length; i++ )
     {
       if( $(boxes[i]).prop('checked')) {
@@ -153,8 +161,8 @@ function resultsCollecting() {
 // ----------------------------------------------------------------
 
   var boxes = $(' input[type="checkbox"].additional:checked '); 
-  var additional = "Дополнительные работы - ";
-  var count = 0;;
+  var count = 0;
+  additional = "Дополнительные работы - ";
   for (var i=0;  i<boxes.length; i++ )
     {
       if( $(boxes[i]).prop('checked')) {
@@ -235,27 +243,34 @@ $( '#form' ).submit( function(){
   if( !$( 'input.tel' ).val() ){
     alert( 'Пожалуйста, введите номер телефона.' );
     return false;
-  } else {
+  } 
+  else {
     var tel = $( 'input.tel' ).val();
-    //console.log(tel);
     //url: 'https://ad.lekua.in.ua/dj7/mail.php',
-    //http://stiazka-lux.by/calc//scripts/form.php
-    //url: 'http://stiazka-lux.by/calc//scripts/form.php',
-    $.ajax({
-      url: './scripts/form.php',
-      type: 'post',
-      data: { livingPlace: livingPlace,
-              square: square,
-              additional: additional,
-              tel: tel },
-      success: function( data ){
-        console.log( 'okay' );
-        alert( 'Поздравляем! Вы получили скидку!' );
-        location.replace( 'index.html' );
-      }
-    });
+    //url: "mail.php",
+    try {
+      $.ajax({
+        url: 'http://stiazka-lux.by/calc//scripts/form.php',
+        type: 'post',
+        data: { 
+                mylivingPlace: livingPlace,
+                mysquare: square,
+                myadditional: additional,
+                mytel: tel 
+              },
+        success: function( data ){
+          console.log( 'okay' );
+          alert( 'Поздравляем! Вы получили скидку!' );
+          location.replace( 'index.html' );
+        }
+      });
+    }
+    catch (e) {
+     console.log(e);
+     console.log(e.name);
+    }
   }
   return false;
 });
 
-});  
+}); // end $( document ).ready( function() {
