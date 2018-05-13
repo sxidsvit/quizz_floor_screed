@@ -16,18 +16,18 @@ function numberDown() {
 }
 
 // !!!!!!!!!!!!!!!! CHANGE DISCOUNT !!!!!!!!!!!!!!!! //
-var discount = 3,
+var discount = 2, discont_step = 3,
     discountSpan = $( '.discount-percent' );
 
 function discountUp() {
   discountSpan.fadeOut( 100 );
-  discount += 2;
+  discount += discont_step;
   discountSpan.text( discount + '%' ).fadeIn( 250 ); 
 }
 
 function discountDown() {
   discountSpan.fadeOut( 100 );
-  discount -= 2;
+  discount -= discont_step;
   discountSpan.text( discount + '%' ).fadeIn( 250 ); 
 }
 

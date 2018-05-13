@@ -4,6 +4,6 @@ $(document).ready(function() {
 
 
   (function(){
-    $( "input.tel" ).mask('+375(99) 999-99-99');
+    $( "input.tel" ).mask('+380(99) 999-99-99');
   })();
 });
