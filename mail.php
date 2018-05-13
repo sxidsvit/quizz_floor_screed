@@ -1,15 +1,15 @@
 <?php
-	$livingPlace = trim($_POST["livingPlace"]);
-	$square  = trim($_POST["square"]);
-	$additional = trim($_POST["additional"]);
-	$tel = trim($_POST["tel"]);
+	$livingPlace = trim($_GET["livingPlace"]);
+	$square  = trim($_GET["square"]);
+	$additional = trim($_GET["additional"]);
+	$tel = trim($_GET["tel"]);
 
 	$to = "s.p.antonyuk@gmail.com";
 	$subject = "Сообщение с сайта http://ad.lekua.in.ua/calc";
 	//$message = $livingPlace.'<br>'.$square.'<br> '.$additional.'<br>'.$tel ;
 
 $c = true;
-	foreach ( $_POST as $key => $value ) {
+	foreach ( $_GET as $key => $value ) {
 	 	$message .= "
 			" . ( ($c = !$c) ? '<tr>':'<tr style="background-color: #f8f8f8;">' ) . "
 				<td style='padding: 10px; border: #e9e9e9 1px solid;'><b>$key</b></td>

@@ -249,7 +249,7 @@ $( '#form' ).submit( function(){
     try {
       $.ajax({
         url: './mail.php',
-        type: 'post',
+        type: 'get',
         data: { 
                 livingPlace: livingPlace,
                 square: square,
