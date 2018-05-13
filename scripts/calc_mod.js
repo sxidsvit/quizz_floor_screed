@@ -248,7 +248,7 @@ $( '#form' ).submit( function(){
     var tel = 'Телефон: ' + $( 'input.tel' ).val();
     try {
       $.ajax({
-        url: 'http://ad.lekua.in.ua/calc//mail.php',
+        url: './mail.php',
         type: 'post',
         data: { 
                 livingPlace: livingPlace,
